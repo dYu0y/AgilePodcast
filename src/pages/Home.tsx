@@ -1,17 +1,18 @@
-import { IonList, IonCard, IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonCardContent, IonItem, IonListHeader } from '@ionic/react';
+import { IonList, IonCard, IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonCardContent, IonItem, IonListHeader, IonIcon, IonLabel } from '@ionic/react';
 import ReactAudioPlayer from 'react-audio-player';
 import React, { useState } from 'react';
+import { musicalNotes } from 'ionicons/icons';
 // import { pin, wifi, wine, warning, walk } from 'ionicons/icons';
 import './Home.css';
 
 const Home: React.FC = () => {
-  let musics: string[] = [
-    `埋葬 - 萤火虫の怨.mp3`,
-    `磁暴步兵羊永信 - Arcana Idola - 紅葉月梛葉.mp3`,
-    `磁暴步兵羊永信 - Cross†Soul - HyuN feat. Syepias.mp3`,
-    `磁暴步兵羊永信 - Ice Chandelier - pan.mp3`,
-    `磁暴步兵羊永信 - PUPA - モリモリあつし.mp3`,
-    `磁暴步兵羊永信 - 万吨匿名信 - 埋葬.mp3`
+  let musics: { value: string, displayName: string }[] = [
+    { value: `埋葬 - 萤火虫の怨.mp3`, displayName: `萤火虫の怨 - 埋葬.mp3` },
+    { value: `磁暴步兵羊永信 - Arcana Idola - 紅葉月梛葉.mp3`, displayName: `Arcana Idola - 紅葉月梛葉.mp3` },
+    { value: `磁暴步兵羊永信 - Cross†Soul - HyuN feat. Syepias.mp3`, displayName: `Cross†Soul - HyuN feat. Syepias.mp3` },
+    { value: `磁暴步兵羊永信 - Ice Chandelier - pan.mp3`, displayName: `Ice Chandelier - pan.mp3` },
+    { value: `磁暴步兵羊永信 - PUPA - モリモリあつし.mp3`, displayName: `PUPA - モリモリあつし.mp3` },
+    { value: `磁暴步兵羊永信 - 万吨匿名信 - 埋葬.mp3`, displayName: `万吨匿名信 - 埋葬.mp3` }
   ];
   let [song, changeSong] = useState(-1);
 
@@ -19,7 +20,7 @@ const Home: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Poi</IonTitle>
+          <IonTitle>OuO</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>
@@ -33,7 +34,14 @@ const Home: React.FC = () => {
             <IonListHeader>
               歌單(節目清單)
             </IonListHeader>
-            {musics.map((value: string, index: number) => <IonItem key={index} onClick={() => { changeSong(index) }}>{value}</IonItem>)}
+            {musics.map(({ value, displayName }, index: number) =>
+              <IonItem key={value} onClick={() => changeSong(index)}>
+                <IonLabel>{displayName}</IonLabel>
+                {song === index
+                  ? <IonIcon icon={musicalNotes} slot="end" />
+                  : null}
+              </IonItem>
+            )}
           </IonList>
         </IonCard>
 
@@ -43,9 +51,9 @@ const Home: React.FC = () => {
               ? <IonCardContent>{"目前沒有撥放的歌 QQ"}</IonCardContent>
               : <IonCardContent>
                 <IonItem lines="none">Now Playing...</IonItem>
-                <IonItem lines="none">{musics[song]}</IonItem>
+                <IonItem lines="none">{musics[song].displayName}</IonItem>
                 <ReactAudioPlayer
-                  src={[`assets\\` + musics[song]].join()}
+                  src={[`assets\\` + musics[song].value].join()}
                   autoPlay
                   controls
                   onEnded={
