@@ -13,7 +13,7 @@
 ![](https://i.imgur.com/8x07TI5.png)
 確認路徑無誤後輸入 `npm install` 並按下 enter 執行  
 等他跑完後  
-再同樣的地方輸入 `ionic serve` 就應該可以在瀏覽器看到畫面了  
+再同樣的地方輸入 `npm start` 就應該可以在瀏覽器看到畫面了  
 ![](https://i.imgur.com/7LQrYVQ.png)
 
 ## 安裝到手機上(android)
@@ -21,8 +21,13 @@
 安裝完成後進入 agile_podcast 專案資料夾  
 以 **cmd** 開啟小黑窗  
 接著複製貼上下面的指令並運行  
+**第一次運行**
 ``` cmd
-ionic build --watch&& ionic cap copy && ionic cap sync &&ionic cap open android
+npm run build --watch&& npx cap copy && npx cap add android && npx cap copy android && npx cap open android
+```
+**第二次之後**
+``` cmd
+npm run build --watch&& npx cap copy && npx cap copy android && npx cap open android
 ```
 會看到 **android studio** 被開啟  
 接下來按照下面幾篇教學的步驟就可以將APP安裝到手機上了!!  
